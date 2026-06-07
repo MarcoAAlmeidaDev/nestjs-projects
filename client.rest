@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:3000
+
+### @name RecadosControllerReceberRecado
+GET  {{baseUrl}}/recados
+
+### @name RecadosControllerReceberRecado
+GET  {{baseUrl}}/recados/3
+
+
+### @name RecadosControllerReceberRecado
+POST {{baseUrl}}/recados
+Content-Type: application/json
+
+{
+    "texto": "Este é um recado de teste 15",
+    "de": "João",
+    "para": "Maria"
+}
+
+
+### @name AtualizaRecado
+PATCH {{baseUrl}}/recados/6
+Content-Type: application/json
+
+{ 
+    "de": "Teste do Marco",
+    "lido": true
+}
+
+### @name DeletarRecado
+  DELETE {{baseUrl}}/recados/2
