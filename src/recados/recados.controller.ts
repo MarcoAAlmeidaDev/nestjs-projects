@@ -15,7 +15,6 @@ import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 
-
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
@@ -46,7 +45,10 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateRecadoDto: UpdateRecadoDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateRecadoDto: UpdateRecadoDto,
+  ) {
     return this.recadosService.update(updateRecadoDto, id);
   }
 }

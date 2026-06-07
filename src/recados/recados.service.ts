@@ -7,8 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class RecadosService {
-  constructor(@InjectRepository(Recado) private readonly recadoRepository: Repository<Recado>) {}
-  
+  constructor(
+    @InjectRepository(Recado)
+    private readonly recadoRepository: Repository<Recado>,
+  ) {}
 
   async findAll(): Promise<Recado[]> {
     const recados = await this.recadoRepository.find();
@@ -16,9 +18,8 @@ export class RecadosService {
   }
 
   async findOne(id: number): Promise<Recado> {
-
     const recado = await this.recadoRepository.findOne({
-      where: {id: id}
+      where: { id: id },
     });
 
     if (!recado) {
@@ -26,42 +27,46 @@ export class RecadosService {
     }
 
     return recado;
- }
+  }
 
   create(createRecadoDto: CreateRecadoDto): Promise<Recado> {
-    
     const novoRecado = {
       ...createRecadoDto,
       lido: false,
-      data: new Date()
+      data: new Date(),
     };
 
-    const recado =  this.recadoRepository.create(novoRecado);
+    const recado = this.recadoRepository.create(novoRecado);
     return this.recadoRepository.save(recado);
- }
+  }
 
- async update(updateRecadoDto: UpdateRecadoDto, id: number) {
+  async update(updateRecadoDto: UpdateRecadoDto, id: number) {
+    const parcialRecadoDto = {
+       lido: updateRecadoDto?.lido,
+       texto: updateRecadoDto?.texto
+    }
+
     const recado = await this.recadoRepository.preload({
       id,
-      ...updateRecadoDto
+      ...parcialRecadoDto,
     });
 
-    if(!recado) {
+    if (!recado) {
       throw new HttpException('Recado não encontrado', HttpStatus.NOT_FOUND);
-    };
+    }
 
     return this.recadoRepository.save(recado);
- }
+  }
 
   async remove(id: number): Promise<Recado> {
-      const recado = await this.recadoRepository.findOne({
-        where: {id: id}
-      });
+    const recado = await this.recadoRepository.findOne({
+      where: { id: id },
+    });
 
-      if (!recado) {
-        throw new HttpException('Este Recado Não Existe', HttpStatus.NOT_FOUND);
-      }
+    if (!recado) {
+      throw new HttpException('Este Recado Não Existe', HttpStatus.NOT_FOUND);
+    }
 
-      return this.recadoRepository.remove(recado);
+    return this.recadoRepository.remove(recado);
   }
 }
