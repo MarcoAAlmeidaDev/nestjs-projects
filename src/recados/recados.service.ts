@@ -42,9 +42,9 @@ export class RecadosService {
 
   async update(updateRecadoDto: UpdateRecadoDto, id: number) {
     const parcialRecadoDto = {
-       lido: updateRecadoDto?.lido,
-       texto: updateRecadoDto?.texto
-    }
+      lido: updateRecadoDto?.lido,
+      texto: updateRecadoDto?.texto,
+    };
 
     const recado = await this.recadoRepository.preload({
       id,

@@ -29,3 +29,35 @@ Content-Type: application/json
 
 ### @name DeletarRecado
   DELETE {{baseUrl}}/recados/2
+
+
+### @name PessoaControllerReceberRecado
+GET  {{baseUrl}}/pessoas
+
+### @name PessoaControllerReceberRecado
+GET  {{baseUrl}}/pessoas/1
+
+
+### @name PessoaControllerReceberRecado
+POST {{baseUrl}}/pessoas
+Content-Type: application/json
+
+{
+    "nome": "João",
+    "password": "senha123",
+    "email": "joao@example.com"
+}
+
+
+### @name AtualizaPessoa
+PATCH {{baseUrl}}/pessoas/1
+Content-Type: application/json
+
+{ 
+    "nome": "João Silva",
+    "email": "joao.silva@example.com"
+}
+}
+
+### @name DeletarPessoa
+  DELETE {{baseUrl}}/pessoas/1
